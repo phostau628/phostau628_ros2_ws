@@ -1,0 +1,56 @@
+cmake_minimum_required(VERSION 3.8)
+project(nav_pkg)
+
+if(CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
+  add_compile_options(-Wall -Wextra -Wpedantic)
+endif()
+
+# find dependencies
+find_package(ament_cmake REQUIRED)
+# uncomment the following section in order to fill in
+# further dependencies manually.
+# find_package(<dependency> REQUIRED)
+
+find_package(rclcpp REQUIRED)
+find_package(std_msgs REQUIRED)
+
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+
+add_executable(waypoint_navigation src/waypoint_navigation.cpp)
+ament_target_dependencies(waypoint_navigation "rclcpp" "std_msgs")
+
+install(TARGETS waypoint_navigation
+DESTINATION lib/${PROJECT_NAME})
+
+install(
+DIRECTORY
+  launch
+DESTINATION
+  share/${PROJECT_NAME})
+
+# 示例2：安装 maps 目录下的地图文件
+install(
+  DIRECTORY maps/  # 源码中的 maps 目录（src/wpr_simulation2/maps）
+  DESTINATION share/${PROJECT_NAME}/maps  # 目标路径（install/share/wpr_simulation2/maps）
+)
+
+# 示例3：安装单个配置文件（如 params.yaml）
+install(
+  FILES config/nav2_params_1.yaml  # 源码中的单个文件
+  DESTINATION share/${PROJECT_NAME}/config  # 目标路径
+)
+
+if(BUILD_TESTING)
+  find_package(ament_lint_auto REQUIRED)
+  # the following line skips the linter which checks for copyrights
+  # comment the line when a copyright and license is added to all source files
+  set(ament_cmake_copyright_FOUND TRUE)
+  # the following line skips cpplint (only works in a git repo)
+  # comment the line when this package is in a git repo and when
+  # a copyright and license is added to all source files
+  set(ament_cmake_cpplint_FOUND TRUE)
+  ament_lint_auto_find_test_dependencies()
+endif()
+
+ament_package()
