@@ -31,7 +31,7 @@ def generate_launch_description():
 
     home_cmd = IncludeLaunchDescription(
         PythonLaunchDescriptionSource(
-            os.path.join(launch_file_dir, 'robocup_home.launch.py')
+            os.path.join(launch_file_dir, 'robocup_home.launch.py') 
         )
     )
 
@@ -44,7 +44,7 @@ def generate_launch_description():
     map_file = os.path.join(
         get_package_share_directory('wpr_simulation2'),
         'maps',
-        'map.yaml'
+        'map_modified2.yaml'
     )
     
     nav_param_file = os.path.join(

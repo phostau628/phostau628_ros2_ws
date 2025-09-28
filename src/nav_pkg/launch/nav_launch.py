@@ -8,7 +8,7 @@ from launch.launch_description_sources import PythonLaunchDescriptionSource
 def generate_launch_description():
 
     map_file = os.path.join(
-    get_package_share_directory('wpr_simulation2'),
+    get_package_share_directory('nav_pkg'),
         'maps',
         'map_modified2.yaml'
     )
@@ -16,7 +16,7 @@ def generate_launch_description():
     nav_param_file = os.path.join(
     get_package_share_directory('nav_pkg'),
         'config',
-        'nav2_params_1.yaml'
+        'nav2_params.yaml'
     )
 
     nav2_launch_dir = os.path.join(

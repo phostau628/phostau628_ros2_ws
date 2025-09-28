@@ -13,12 +13,28 @@ find_package(ament_cmake REQUIRED)
 
 find_package(rclcpp REQUIRED)
 find_package(std_msgs REQUIRED)
+find_package(nav2_msgs REQUIRED)
+find_package(rclcpp_action REQUIRED)
+find_package(geometry_msgs REQUIRED)
 
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 add_executable(waypoint_navigation src/waypoint_navigation.cpp)
 ament_target_dependencies(waypoint_navigation "rclcpp" "std_msgs")
+
+add_executable(nav2_waypoint_client src/nav2_waypoint_client.cpp)
+ament_target_dependencies(nav2_waypoint_client
+  "rclcpp"
+  "rclcpp_action"
+  "nav2_msgs"
+  "geometry_msgs"
+)
+
+install(TARGETS
+  nav2_waypoint_client
+  DESTINATION lib/${PROJECT_NAME}
+)
 
 install(TARGETS waypoint_navigation
 DESTINATION lib/${PROJECT_NAME})
@@ -37,7 +53,7 @@ install(
 
 # 示例3：安装单个配置文件（如 params.yaml）
 install(
-  FILES config/nav2_params_1.yaml  # 源码中的单个文件
+  FILES config/nav2_params.yaml  # 源码中的单个文件
   DESTINATION share/${PROJECT_NAME}/config  # 目标路径
 )
 
