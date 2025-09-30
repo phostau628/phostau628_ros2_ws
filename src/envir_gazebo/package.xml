@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<?xml-model href="http://download.ros.org/schema/package_format3.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
+<package format="3">
+  <name>envir_gazebo</name>
+  <version>0.0.0</version>
+  <description>Custom Gazebo environment for ROS 2</description>  <!-- 替换TODO为实际描述 -->
+  <maintainer email="468965968@qq.com">phostau</maintainer>
+  <license>Apache-2.0</license>  <!-- 填写具体许可证，如Apache-2.0 -->
+
+  <!-- 构建工具依赖（仅需一次） -->
+  <buildtool_depend>ament_cmake</buildtool_depend>
+
+  <!-- 运行依赖（gazebo_ros足够，无需重复） -->
+  <depend>gazebo_ros</depend>
+
+  <!-- 测试依赖（可选，若不需要测试可删除） -->
+  <test_depend>ament_lint_auto</test_depend>
+  <test_depend>ament_lint_common</test_depend>
+ 
+  <export>
+    <build_type>ament_cmake</build_type>
+  </export>
+</package>

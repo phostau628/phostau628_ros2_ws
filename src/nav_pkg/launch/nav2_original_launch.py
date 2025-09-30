@@ -49,22 +49,17 @@ def generate_launch_description():
     )
     
    
-    waypoint_client = Node(
-        package="nav_pkg",
-        executable="nav2_waypoint_client",
-        output="screen",
-        parameters=[{"use_sim_time": True}]
-    )
+    # waypoint_client = Node(
+    #     package="nav_pkg",
+    #     executable="nav2_waypoint_client",
+    #     output="screen",
+    #     parameters=[{"use_sim_time": True}]
+    # )
     
    
-    delayed_waypoint_client = TimerAction(
-        period=28.0,
-        actions=[waypoint_client]
-    )
     
 
     return LaunchDescription([
         nav2_launch,
         rviz_node, 
-        delayed_waypoint_client
     ])

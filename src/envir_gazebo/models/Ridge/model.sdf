@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<sdf version="1.6">
+  <model name="ridge">
+    <link name="link">
+      <collision name="collision">
+        <geometry>
+          <box>
+            <size>2.2 0.3 0.12</size>  <!-- 长、宽、高（单位：米） -->
+          </box>
+        </geometry>
+      </collision>
+      <visual name="visual">
+        <geometry>
+          <box>
+            <size>2.2 0.3 0.12</size>
+          </box>
+        </geometry>
+        <material>
+          <script>
+            <name>Gazebo/Green</name>  <!-- 视觉材质（绿色，模拟草地/土壤） -->
+            <uri>model://materials/scripts/gazebo.material</uri>
+          </script>
+        </material>
+      </visual>
+    </link>
+  </model>
+</sdf>
