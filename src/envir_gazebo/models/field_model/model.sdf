@@ -1,0 +1,194 @@
+<?xml version="1.0"?>
+<sdf version="1.7">
+  <model name="field_model">
+    <!-- 声明为静态模型，避免物理引擎计算，提高性能 -->
+    <static>true</static>
+    
+    <!-- 1. 地面基底（灰色，作为整个场地的基础） -->
+    <link name="ground">
+      <pose>0 0 0 0 0 0</pose>  <!-- 位于坐标原点，z=0 贴合地面 -->
+      <visual name="ground_visual">
+        <geometry>
+          <box>
+            <size>3.0 3.9 0.05</size>  <!-- 长3m × 宽3.9m × 厚0.05m -->
+          </box>
+        </geometry>
+        <material>
+          <script>
+            <uri>file://media/materials/scripts/gazebo.material</uri>
+            <name>Gazebo/Grey</name>  <!-- 浅灰色地面 -->
+          </script>
+        </material>
+      </visual>
+      <collision name="ground_collision">
+        <geometry>
+          <box>
+            <size>3.0 3.9 0.05</size>  <!-- 碰撞体尺寸与视觉一致 -->
+          </box>
+        </geometry>
+      </collision>
+    </link>
+
+    <!-- 2. 垄背（绿色，共5条，间距0.7m） -->
+    <!-- 垄背1 -->
+    <link name="ridge_1">
+      <pose>0 0 0.125 0 0 0</pose>  <!-- z=0.125m，高于地面0.125m（地面厚0.05m + 悬空0.075m） -->
+      <visual name="ridge_1_visual">
+        <geometry>
+          <box>
+            <size>2.2 0.3 0.1</size>  <!-- 长2.2m × 宽0.3m × 高0.1m -->
+          </box>
+        </geometry>
+        <material>
+          <script>
+            <uri>file://media/materials/scripts/gazebo.material</uri>
+            <name>Gazebo/Green</name>  <!-- 绿色垄背 -->
+          </script>
+        </material>
+      </visual>
+      <collision name="ridge_1_collision">
+        <geometry>
+          <box>
+            <size>2.2 0.3 0.1</size>  <!-- 碰撞体与视觉尺寸一致 -->
+          </box>
+        </geometry>
+      </collision>
+    </link>
+
+    <!-- 垄背2（y方向偏移0.7m：垄背宽0.3m + 垄沟宽0.4m） -->
+    <link name="ridge_2">
+      <pose>0 0.7 0.125 0 0 0</pose>
+      <visual name="ridge_2_visual">
+        <geometry><box><size>2.2 0.3 0.1</size></box></geometry>
+        <material><script><uri>file://media/materials/scripts/gazebo.material</uri><name>Gazebo/Green</name></script></material>
+      </visual>
+      <collision name="ridge_2_collision">
+        <geometry><box><size>2.2 0.3 0.1</size></box></geometry>
+      </collision>
+    </link>
+
+    <!-- 垄背3（y=0.7+0.7=1.4m） -->
+    <link name="ridge_3">
+      <pose>0 1.4 0.125 0 0 0</pose>
+      <visual name="ridge_3_visual">
+        <geometry><box><size>2.2 0.3 0.1</size></box></geometry>
+        <material><script><uri>file://media/materials/scripts/gazebo.material</uri><name>Gazebo/Green</name></script></material>
+      </visual>
+      <collision name="ridge_3_collision">
+        <geometry><box><size>2.2 0.3 0.1</size></box></geometry>
+      </collision>
+    </link>
+
+    <!-- 垄背4（y=1.4+0.7=2.1m） -->
+    <link name="ridge_4">
+      <pose>0 2.1 0.125 0 0 0</pose>
+      <visual name="ridge_4_visual">
+        <geometry><box><size>2.2 0.3 0.1</size></box></geometry>
+        <material><script><uri>file://media/materials/scripts/gazebo.material</uri><name>Gazebo/Green</name></script></material>
+      </visual>
+      <collision name="ridge_4_collision">
+        <geometry><box><size>2.2 0.3 0.1</size></box></geometry>
+      </collision>
+    </link>
+
+    <!-- 垄背5（y=2.1+0.7=2.8m） -->
+    <link name="ridge_5">
+      <pose>0 2.8 0.125 0 0 0</pose>
+      <visual name="ridge_5_visual">
+        <geometry><box><size>2.2 0.3 0.1</size></box></geometry>
+        <material><script><uri>file://media/materials/scripts/gazebo.material</uri><name>Gazebo/Green</name></script></material>
+      </visual>
+      <collision name="ridge_5_collision">
+        <geometry><box><size>2.2 0.3 0.1</size></box></geometry>
+      </collision>
+    </link>
+
+    <!-- 3. 必走路径（黄色，位于垄背1和2之间） -->
+    <link name="path">
+      <pose>0 0.35 0.075 0 0 0</pose>  <!-- z=0.075m，略高于地面（地面厚0.05m + 0.025m） -->
+      <visual name="path_visual">
+        <geometry>
+          <box>
+            <size>2.5 0.4 0.05</size>  <!-- 长2.5m × 宽0.4m（垄沟宽度） × 厚0.05m -->
+          </box>
+        </geometry>
+        <material>
+          <script>
+            <uri>file://media/materials/scripts/gazebo.material</uri>
+            <name>Gazebo/Yellow</name>  <!-- 黄色路径，高对比度 -->
+          </script>
+        </material>
+      </visual>
+      <collision name="path_collision">
+        <geometry>
+          <box>
+            <size>2.5 0.4 0.05</size>  <!-- 碰撞体与视觉尺寸一致 -->
+          </box>
+        </geometry>
+      </collision>
+    </link>
+
+    <!-- 4. 比赛启动区（红色，位于场地左下角） -->
+    <link name="start_area">
+      <pose>-1.5 -1.95 0.075 0 0 0</pose>  <!-- x=-1.5m（地面左边界），y=-1.95m（地面下边界） -->
+      <visual name="start_area_visual">
+        <geometry>
+          <box>
+            <size>0.4 1.0 0.1</size>  <!-- 长0.4m × 宽1.0m × 高0.1m，突出显示 -->
+          </box>
+        </geometry>
+        <material>
+          <script>
+            <uri>file://media/materials/scripts/gazebo.material</uri>
+            <name>Gazebo/Red</name>  <!-- 红色启动区，醒目 -->
+          </script>
+        </material>
+      </visual>
+      <collision name="start_area_collision">
+        <geometry>
+          <box>
+            <size>0.4 1.0 0.1</size>  <!-- 碰撞体与视觉尺寸一致 -->
+          </box>
+        </geometry>
+      </collision>
+    </link>
+
+    <!-- 5. 固定所有部件（避免模型分散） -->
+    <link name="link_fixed">
+      <pose>0 0 0 0 0 0</pose>  <!-- 用于固定其他link的虚拟link -->
+    </link>
+    <!-- 将所有部件固定到虚拟link，确保模型整体不分散 -->
+    <joint name="ground_fixed" type="fixed">
+      <parent>link_fixed</parent>
+      <child>ground</child>
+    </joint>
+    <joint name="ridge1_fixed" type="fixed">
+      <parent>link_fixed</parent>
+      <child>ridge_1</child>
+    </joint>
+    <joint name="ridge2_fixed" type="fixed">
+      <parent>link_fixed</parent>
+      <child>ridge_2</child>
+    </joint>
+    <joint name="ridge3_fixed" type="fixed">
+      <parent>link_fixed</parent>
+      <child>ridge_3</child>
+    </joint>
+    <joint name="ridge4_fixed" type="fixed">
+      <parent>link_fixed</parent>
+      <child>ridge_4</child>
+    </joint>
+    <joint name="ridge5_fixed" type="fixed">
+      <parent>link_fixed</parent>
+      <child>ridge_5</child>
+    </joint>
+    <joint name="path_fixed" type="fixed">
+      <parent>link_fixed</parent>
+      <child>path</child>
+    </joint>
+    <joint name="start_area_fixed" type="fixed">
+      <parent>link_fixed</parent>
+      <child>start_area</child>
+    </joint>
+  </model>
+</sdf>
